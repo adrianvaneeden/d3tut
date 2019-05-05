@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3 Test</title>
+    <link rel="stylesheet" href="d3-test.css">
+
+    <style>
+        .chart rect {
+            fill: steelblue;
+        }
+
+        .chart text {
+            fill: white;
+            font: 10px sans-serif;
+            text-anchor: end;
+        }
+
+        /* .bar {
+            background-color: blue;
+        } */
+    </style>
+</head>
+
+<body>
+    <h1>D3.js Test</h1>
+    <svg class="chart"></svg>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script>
+        // LEt's make a bar chart
+        var data = [ 100, 30, 86, 168, 555, 281, 303, 365];
+
+        // LEt's make a bar chart II https://bost.ocks.org/mike/bar/2/
+        
+        var width = 500,
+            barHeight = 20;
+
+        var x = d3.scaleLinear()
+            .domain([0, d3.max(data)])
+            .range([0, width]);
+
+        var chart = d3.select('.chart')
+            .attr("width", width)
+            .attr("height", barHeight * data.length);
+
+        var bar = chart.selectAll("g")
+            .data(data)
+            .enter().append("g")
+                .attr("transform", function(d,i) { return "translate(0, " + i * barHeight + ")"; })
+
+        bar.append("rect")
+            .attr("width", x)
+            .attr("height", barHeight -1);
+
+        bar.append("text")
+            .attr("x", function(d) { return x(d) -3; })
+            .attr("y", barHeight /2)
+            .attr("dy", ".35em")
+            .text(function(d) { return d; });
+
+
+        
+        // LEt's make a bar chart I https://bost.ocks.org/mike/bar/
+
+        // var x = d3.scaleLinear()
+        //         .domain([0, d3.max(data)])
+        //         .range([0, 1000]);
+        
+        // var barChart = d3.select('.body')
+        //                 .data(data)
+        //                 .enter()
+        //                 .append('div')
+        //                 .style('width', function(d) { return x(d) + 'px'; })
+        //                 .text( function(d) { return(d); });
+
+        console.log(data);
+
+        // ----------------------------------------------------------
+        // Bar graph example
+        // d3.select(".chart")
+        //     .selectAll("div")
+        //     .data(data)
+        //         .enter()
+        //         .append("div")
+        //         .attr("class", "bar")
+        //         .style("width", function(d) { return d + "px"; })
+        //         .text(function(d) { return d; })
+
+        // ------------------------------------------------------
+        // data, enter and append test
+        // https://medium.com/@binyamin/d3-select-selectall-data-enter-and-exit-f0e4f0d3e1d0
+
+        // var data = oddNums = [1, 3, 5, 7, 9];
+
+        // let svg = d3.select('body').append('svg');
+
+        // svg.selectAll('rect')
+        //     .data(oddNums)
+        //     .enter().append('rect');
+
+        // d3.selectAll("h1").style("color", "red");
+
+        // d3.selectAll("li")
+        //     .data( [14, 18, 25, 33] )
+        //     .style("color", function(d, i) {
+        //         return "hsl(" + Math.random() * 360 + ", 100%, 50%)";
+        //     })
+        //     .style("font-size", function(d) {
+        //         return d + "px";
+        //     })
+
+        // para = d3.select("body")
+        //     .selectAll("p")
+        //     .data([4, 8, 15, 16, 23, 42]);
+
+        // para.enter().append("p")
+        //         .text(function(d) {
+        //             return "Sending back number " + d + "."; 
+        //         });
+                
+        // para.exit().remove();
+
+        // d3.select("body").transition()
+        //     .style("background-color", "black");
+
+
+
+    </script>
+</body>
+</html>
